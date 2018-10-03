@@ -31,6 +31,9 @@ r = requests.get(players_endpoint + tag, headers = headers)
 
 pyObject = r.json()
 
+# TODO test for authorization
+# pyObject
+
 data = pd.DataFrame(pyObject['cards'], columns=['count', 'name'])
 
 if r.status_code == 200:
