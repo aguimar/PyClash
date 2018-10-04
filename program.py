@@ -4,7 +4,7 @@ import pandas as pd
 
 tag = '%23VY28C0GJ'
 
-key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjEyOWUzZGQyLTY3MzEtNDk2YS1hOGU1LWU2ZDRmMTFkNjc4OCIsImlhdCI6MTUzODMxNTc2NSwic3ViIjoiZGV2ZWxvcGVyL2M3ZDFkNzIzLTI1MDYtMDc4MS1kMmUzLWRjZmZiN2M3OGQzNCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNzcuMTkuNzIuMTY1Il0sInR5cGUiOiJjbGllbnQifV19.SFKn96tgKrGI2iKuV1F7uBhYeFgYrhlJdJPs6UDWVxhT4WpqC4uJPRVA2pLbJVUqKCnFWE3L0vr3zx3lmb83HA'
+key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImNkMzNlNTQ3LWViMmYtNGI5YS1hY2Y4LWMzODkxYjViNGE2NyIsImlhdCI6MTUzODYwOTA4Mywic3ViIjoiZGV2ZWxvcGVyL2M3ZDFkNzIzLTI1MDYtMDc4MS1kMmUzLWRjZmZiN2M3OGQzNCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxODYuMjEzLjQ3LjI0NyJdLCJ0eXBlIjoiY2xpZW50In1dfQ.oVgZrx4Nfy1rHPur-Nq0UyUCjftf1m86ERrEZScX7qObjtBpTOYMgjNHryXkQNaNlHu7aid8JLzRDPORgho1_w'
 
 base_url = 'https://api.clashroyale.com/v1/'
 
@@ -29,19 +29,13 @@ r = requests.get(players_endpoint + tag, headers = headers)
     #obj = open("json.txt", "r").read()
     #pyObject = json.loads(obj)
 
-pyObject = r.json()
-
-# TODO test for authorization
-# pyObject
-
-data = pd.DataFrame(pyObject['cards'], columns=['count', 'name'])
-
 if r.status_code == 200:
-    #for k,v in pyObject.items():
-    #    print("-->" + k,v)
-    print(data)
+    pyObject = r.json()
+    data = pd.DataFrame(pyObject['cards'], columns=['count', 'name'])
+elif r.status_code == 403:
+    print('Permissao Negada !')
 elif r.status_code == 404:
-    print('Player not found')
+    print('Jogador nao encontrado !')
 
 
 
