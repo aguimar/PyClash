@@ -36,14 +36,3 @@ elif r.status_code == 403:
     print('Permissao Negada !')
 elif r.status_code == 404:
     print('Jogador nao encontrado !')
-
-
-
-
-
-
-
-
-
-
-
