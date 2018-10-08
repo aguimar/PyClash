@@ -26,8 +26,8 @@ headers = {
 r = requests.get(players_endpoint + tag, headers = headers)
 
 # ler temporariamente do arquivo
-    #obj = open("json.txt", "r").read()
-    #pyObject = json.loads(obj)
+obj = open("json.txt", "r").read()
+pyObject = json.loads(obj)
 
 if r.status_code == 200:
     pyObject = r.json()
