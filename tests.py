@@ -2,7 +2,7 @@ import unittest
 from PlayerStatDataLayer import PlayerStat
 from PlayerStatDataLayer import dal
 from sqlalchemy.orm import sessionmaker
-from clashapi import ClashApi, ClashApiHandler
+from clashapi import ClashApi, ClashApiClient
 import requests
 import json
 from unittest.mock import MagicMock
@@ -55,14 +55,14 @@ class Test_App(unittest.TestCase):
         obj = open("json.txt", "r").read()
         pyObject = json.loads(obj)
         
-        clashapi_handler = ClashApiHandler()
+        clashapi_handler = ClashApiClient()
 
         # uma vez mocked, posso fazer o resto sem precisa chamar a api
-        clashapi_handler.clashapi_getjson = MagicMock(return_value = pyObject)
+        clashapi_handler.get_player_info  = MagicMock(return_value = pyObject)
 
         # Act
-        returned_json = clashapi_handler.clashapi_getjson('players')
+        returned_json = clashapi_handler.get_player_json(('players', '#VY28C0GJ'))
 
         # Assert
-        self.assertEqual(pyObject, returned_json)
+        self.assertEqual(json.dumps(pyObject), returned_json)
         
