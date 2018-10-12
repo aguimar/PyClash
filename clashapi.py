@@ -47,4 +47,5 @@ class ClashApiClient:
         return r
 
     def get_player_json(self, parameters):
-        return self.get_player_info(parameters).json()
+        response = self.get_player_info(parameters)
+        return response.json()

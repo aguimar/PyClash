@@ -7,13 +7,15 @@ import requests
 import json
 from unittest.mock import MagicMock
 
+import pickle
+
 
 class Test_App(unittest.TestCase):
 
     
     @classmethod
     def setUpClass(cls):
-        dal.db_init('sqlite:///Stats.db')
+        dal.db_init('sqlite:///StatsTests.db')
         
 
     def test_clashapi_endpoints(self):
@@ -50,19 +52,36 @@ class Test_App(unittest.TestCase):
         self.assertEqual(playerStatAtBD, playerStat)
     
     def test_clashapi_mock_returned_json(self):
-        # Arrange
         
-        obj = open("json.txt", "r").read()
-        pyObject = json.loads(obj)
+        # Arrange
+        binary_file = open('response_pickled.bin', 'rb')
+        response_unpickled = pickle.load(binary_file)
         
         clashapi_handler = ClashApiClient()
 
         # uma vez mocked, posso fazer o resto sem precisa chamar a api
-        clashapi_handler.get_player_info  = MagicMock(return_value = pyObject)
+        clashapi_handler.get_player_info  = MagicMock(return_value = response_unpickled)
 
         # Act
         returned_json = clashapi_handler.get_player_json(('players', '#VY28C0GJ'))
 
         # Assert
-        self.assertEqual(json.dumps(pyObject), returned_json)
+        self.assertEqual(response_unpickled.json(), returned_json)
+    
+    def test_clashapi_integration(self):
+
+        #clashapi_handler = ClashApiClient()
+
+        #response = clashapi_handler.get_player_info(('players', '%23VY28C0GJ'))
+
+        #binary_file = open('response_pickled.bin', mode='wb')
+        #response_pickled = pickle.dump(response, binary_file)
+        #binary_file.close()
+
+        binary_file = open('response_pickled.bin', 'rb')
+        response_unpickled = pickle.load(binary_file)
+
+        print(response_unpickled)
+
+
         
