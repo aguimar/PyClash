@@ -2,6 +2,7 @@ import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
@@ -30,4 +31,19 @@ class PlayerStat(Base):
 
 dal = PlayerStat()
 
+class PlayerStatRepository:
 
+    def __init__(self):
+        Session = sessionmaker(bind=dal.engine)
+        self.session = Session()
+        
+    
+    def add(self, PlayerStat):
+        self.session.add(PlayerStat)
+    
+    def find(self, key):
+        return self.session.query(PlayerStat).filter_by(name = key).first()
+
+
+    def save(self):
+        self.session.commit()

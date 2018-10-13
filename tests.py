@@ -1,5 +1,5 @@
 import unittest
-from PlayerStatDataLayer import PlayerStat
+from PlayerStatDataLayer import PlayerStat, PlayerStatRepository
 from PlayerStatDataLayer import dal
 from sqlalchemy.orm import sessionmaker
 from clashapi import ClashApi, ClashApiClient
@@ -37,19 +37,20 @@ class Test_App(unittest.TestCase):
     def test_playerstat_inserted(self):
         
         # Arrange
-        Session = sessionmaker(bind=dal.engine)
-        session = Session()
+        dal.db_init('sqlite:///StatsTests.db')
+        repo =  PlayerStatRepository()
+        
         playerStat = PlayerStat(name = 'Aguimar', trophies = 2, wins = 1, losses = 1)
         playerStat2 = PlayerStat(name = 'Aguimar2', trophies = 2, wins = 1, losses = 1)
-        session.add(playerStat)
-        session.add(playerStat2)
-        session.commit()
+        repo.add(playerStat)
+        repo.add(playerStat2)
+        repo.save()
 
         # Act
-        playerStatAtBD = session.query(PlayerStat).filter_by(name = 'Aguimar2').first()
+        playerStatAtBD = repo.find('Aguimar2')
         
         # Assert
-        self.assertEqual(playerStatAtBD, playerStat)
+        self.assertEqual(playerStatAtBD, playerStat2)
     
     def test_clashapi_mock_returned_json(self):
         
