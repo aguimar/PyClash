@@ -32,7 +32,7 @@ class Test_App(unittest.TestCase):
         endpoint = clashapi.getEndPoint(api)
 
         # Assert
-        self.assertEquals(endpoint, endpoint2)
+        self.assertEqual(endpoint, endpoint2)
     
     def test_playerstat_inserted(self):
         
