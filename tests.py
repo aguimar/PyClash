@@ -1,6 +1,5 @@
 import unittest
 from PlayerStatDataLayer import PlayerStat, PlayerStatRepository
-from PlayerStatDataLayer import dal
 from sqlalchemy.orm import sessionmaker
 from clashapi import ClashApi, ClashApiClient
 import requests
@@ -15,7 +14,7 @@ class Test_App(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
-        dal.db_init('sqlite:///StatsTests.db')
+        repo = PlayerStatRepository('sqlite:///StatsTests.db')
         
 
     def test_clashapi_endpoints(self):
@@ -36,10 +35,8 @@ class Test_App(unittest.TestCase):
     
     def test_playerstat_inserted(self):
         
+        repo = PlayerStatRepository('sqlite:///StatsTests.db')
         # Arrange
-        dal.db_init('sqlite:///StatsTests.db')
-        repo =  PlayerStatRepository()
-        
         playerStat = PlayerStat(name = 'Aguimar', trophies = 2, wins = 1, losses = 1)
         playerStat2 = PlayerStat(name = 'Aguimar2', trophies = 2, wins = 1, losses = 1)
         repo.add(playerStat)
