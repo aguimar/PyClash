@@ -115,3 +115,4 @@ webapi-env/
 .dmypy.json
 dmypy.json
 
+database.csv

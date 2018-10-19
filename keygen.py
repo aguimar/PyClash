@@ -39,7 +39,29 @@ browser.get(url_clash_api)
 
 browser.find_element_by_id('email').send_keys(login)
 browser.find_element_by_id('password').send_keys(senha)
+
 browser.find_element_by_id('password').send_keys(Keys.ENTER)
+browser.switch_to.active_element
+
+# TODO https://developer.clashroyale.com/#/account
+# Contar quantas chaves existem 
+
+# Depois criar +1
+browser.get('https://developer.clashroyale.com/#/new-key')
+#browser.find_element_by_class_name('btn.btn-default.dropdown-toggle').submit()
+#browser.find_element_by_css_selector('button.btn btn-default dropdown-toggle').submit()
+browser.find_element_by_id('name').send_keys('teste')
+browser.find_element_by_id('description').send_keys(my_ip)
+browser.find_element_by_id('range-0').send_keys(my_ip)
+browser.find_element_by_id('range-0').send_keys(Keys.ENTER)
+
+# Abrir a nova chave e copiar o
+
+temp = browser.find_element_by_link_text('Aguimar Neto').click()
+temp = browser.find_element_by_link_text('My Account')
+temp.send_keys(Keys.ENTER)
+browser.find_element_by_link_text('Create New Key').click()
+
 
 
 
