@@ -24,7 +24,7 @@ def wait_for(fn):
 url_clash_api = 'https://developer.clashroyale.com/#/login'
 
 login = 'aguimar@gmail.com'
-senha = 'mat9807632'
+senha = 'mat9807632' # tirar isso daqui
 
 my_ip = requests.get('https://ipapi.co/ip').text
 
@@ -46,16 +46,22 @@ browser.switch_to.active_element
 # TODO https://developer.clashroyale.com/#/account
 # Contar quantas chaves existem 
 
-# Depois criar +1
 browser.get('https://developer.clashroyale.com/#/new-key')
 #browser.find_element_by_class_name('btn.btn-default.dropdown-toggle').submit()
 #browser.find_element_by_css_selector('button.btn btn-default dropdown-toggle').submit()
-browser.find_element_by_id('name').send_keys('teste')
+browser.find_element_by_id('name').send_keys(my_ip)
 browser.find_element_by_id('description').send_keys(my_ip)
 browser.find_element_by_id('range-0').send_keys(my_ip)
 browser.find_element_by_id('range-0').send_keys(Keys.ENTER)
 
+browser.get('https://developer.clashroyale.com/#/account')
+content = browser.find_elements_by_class_name('api-key')
+content = browser.find_elements_by_css_selector('li.api-key')
+link = browser.find_elements_by_tag_name('a')
 # Abrir a nova chave e copiar o
+
+key = content[-1]
+browser.get('https://developer.clashroyale.com/#/key/' + key)
 
 temp = browser.find_element_by_link_text('Aguimar Neto').click()
 temp = browser.find_element_by_link_text('My Account')
