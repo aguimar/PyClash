@@ -81,5 +81,19 @@ class Test_App(unittest.TestCase):
 
         print(response_unpickled)
 
+    def test_clashapi_get_clan_members(self):
+
+        # Arrange
+        clashapi_handler = ClashApiClient()
+
+        # Act 
+        response = clashapi_handler.get_players_from_clan(('clans', '%232U0GY80L'))
+
+        for target_list in response['items']:
+            print(target_list['tag'])
+        # Assert
+        print('stop')
+
+
 
         

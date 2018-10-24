@@ -30,7 +30,7 @@ class ClashApiClient:
         # TODO _tag must be parameter
         self._tag = '%23VY28C0GJ'
         
-        self._key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjUxZGRjYTIyLWI5MzctNGQxZC05OGNlLWNhN2QzNzRlYTRjNSIsImlhdCI6MTUzOTQ3MTQ3NSwic3ViIjoiZGV2ZWxvcGVyL2M3ZDFkNzIzLTI1MDYtMDc4MS1kMmUzLWRjZmZiN2M3OGQzNCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTEuMjUxLjIzNy45NCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.1n_Gte16b-kKUQka3Yijx-wIHuki2A-ua20C7bNdYK_45zJNsqNDO9DrQlhGYlQ0XeKurWARnNrVIiazNy4GWA'
+        self._key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6Ijg1MmNmMDQ1LTcxYjMtNDkyYy1iN2NmLTY0NDI5NDRlZTg0OSIsImlhdCI6MTU0MDMzNjgzNywic3ViIjoiZGV2ZWxvcGVyL2M3ZDFkNzIzLTI1MDYtMDc4MS1kMmUzLWRjZmZiN2M3OGQzNCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNzcuMjA3LjExLjE1MCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.PX6f1Gz8G6XjJRECvKL-lHUjfUT2LLU5IsqHMphwl_JVb4zVvVALPck_FcSHpIs1HqjfQXaKFnqyXQ_ttgqIKw'
         self._base_url = self.clashapi.base_url
         self._headers = {
                     "Accept":"Aplication/json",
@@ -49,3 +49,10 @@ class ClashApiClient:
     def get_player_json(self, parameters):
         response = self.get_player_info(parameters)
         return response.json()
+
+    def get_players_from_clan(self, parameters):
+        endpoint = self.clashapi[parameters[0]]
+        tag = parameters[1]
+        response = requests.get(endpoint.url + tag + '/members', headers = self._headers)
+        return response.json()
+
