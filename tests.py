@@ -1,6 +1,5 @@
 import unittest
 from PlayerStatDataLayer import PlayerStat, PlayerStatRepository
-from PlayerStatDataLayer import dal
 from sqlalchemy.orm import sessionmaker
 from clashapi import ClashApi, ClashApiClient
 import requests
@@ -15,7 +14,7 @@ class Test_App(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
-        dal.db_init('sqlite:///StatsTests.db')
+        repo = PlayerStatRepository('sqlite:///StatsTests.db')
         
 
     def test_clashapi_endpoints(self):
@@ -36,10 +35,8 @@ class Test_App(unittest.TestCase):
     
     def test_playerstat_inserted(self):
         
+        repo = PlayerStatRepository('sqlite:///StatsTests.db')
         # Arrange
-        dal.db_init('sqlite:///StatsTests.db')
-        repo =  PlayerStatRepository()
-        
         playerStat = PlayerStat(name = 'Aguimar', trophies = 2, wins = 1, losses = 1)
         playerStat2 = PlayerStat(name = 'Aguimar2', trophies = 2, wins = 1, losses = 1)
         repo.add(playerStat)
@@ -64,7 +61,7 @@ class Test_App(unittest.TestCase):
         clashapi_handler.get_player_info  = MagicMock(return_value = response_unpickled)
 
         # Act
-        returned_json = clashapi_handler.get_player_json(('players', '#VY28C0GJ'))
+        returned_json = clashapi_handler.get_player_json('players', '#VY28C0GJ')
 
         # Assert
         self.assertEqual(response_unpickled.json(), returned_json)
@@ -83,6 +80,20 @@ class Test_App(unittest.TestCase):
         response_unpickled = pickle.load(binary_file)
 
         print(response_unpickled)
+
+    def test_clashapi_get_clan_members(self):
+
+        # Arrange
+        clashapi_handler = ClashApiClient()
+
+        # Act 
+        list_players = clashapi_handler.get_players_from_clan(('clans', '%232U0GY80L'))
+
+        for target_list in list_players:
+            print(target_list['tag'])
+        # Assert
+        print('stop')
+
 
 
         

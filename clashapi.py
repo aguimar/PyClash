@@ -1,6 +1,7 @@
 import collections
 import requests
 import json
+import os
 
 Endpoint = collections.namedtuple('Endpoint', ['endpoint', 'url'])
 
@@ -27,10 +28,7 @@ class ClashApiClient:
 
     def __init__(self):
         
-        # TODO _tag must be parameter
-        self._tag = '%23VY28C0GJ'
-        
-        self._key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjUxZGRjYTIyLWI5MzctNGQxZC05OGNlLWNhN2QzNzRlYTRjNSIsImlhdCI6MTUzOTQ3MTQ3NSwic3ViIjoiZGV2ZWxvcGVyL2M3ZDFkNzIzLTI1MDYtMDc4MS1kMmUzLWRjZmZiN2M3OGQzNCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTEuMjUxLjIzNy45NCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.1n_Gte16b-kKUQka3Yijx-wIHuki2A-ua20C7bNdYK_45zJNsqNDO9DrQlhGYlQ0XeKurWARnNrVIiazNy4GWA'
+        self._key = os.getenv('MY_TOKEN', 'Token Not Found')
         self._base_url = self.clashapi.base_url
         self._headers = {
                     "Accept":"Aplication/json",
@@ -38,14 +36,24 @@ class ClashApiClient:
                 }
 
     # TODO _tag must be parameter    
-    def get_player_info(self, parameters):
+    def get_player_info(self, endpoint, tag):
         # TODO urllib.parse.quote(tag)
-        endpoint = self.clashapi[parameters[0]]
-        tag = parameters[1]
-        r = requests.get(endpoint.url + tag, headers = self._headers)
+        Endpoint = self.clashapi[endpoint]
+        r = requests.get(Endpoint.url + tag, headers = self._headers)
+        
+        if r.status_code != 200:
+            raise NotImplementedError
         # TODO inspect r.status_code before return
         return r
 
-    def get_player_json(self, parameters):
-        response = self.get_player_info(parameters)
+    def get_player_json(self, endpoint, tag):
+        response = self.get_player_info(endpoint,tag)
         return response.json()
+
+    def get_players_from_clan(self, parameters):
+        endpoint = self.clashapi[parameters[0]]
+        tag = parameters[1]
+        response = requests.get(endpoint.url + tag + '/members', headers = self._headers)
+        list = response.json()['items']
+        return list
+
