@@ -115,8 +115,4 @@ webapi-env/
 .dmypy.json
 dmypy.json
 
-<<<<<<< HEAD
-database.csv
-=======
 *.csv
->>>>>>> Feature

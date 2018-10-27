@@ -50,10 +50,9 @@ class ClashApiClient:
         response = self.get_player_info(endpoint,tag)
         return response.json()
 
-    def get_players_from_clan(self, parameters):
-        endpoint = self.clashapi[parameters[0]]
-        tag = parameters[1]
-        response = requests.get(endpoint.url + tag + '/members', headers = self._headers)
-        list = response.json()['items']
-        return list
+    def get_players_from_clan(self, endpoint, tag):
+        Endpoint = self.clashapi[endpoint]
+        response = requests.get(Endpoint.url + tag + '/members', headers = self._headers)
+        lista = response.json()
+        return lista['items']
 

@@ -5,6 +5,8 @@ from clashapi import ClashApi, ClashApiClient
 import requests
 import json
 from unittest.mock import MagicMock
+from urllib.parse import quote
+import datetime
 
 import pickle
 
@@ -85,14 +87,23 @@ class Test_App(unittest.TestCase):
 
         # Arrange
         clashapi_handler = ClashApiClient()
+        clash_repository = PlayerStatRepository('sqlite:///StatsFeature.db')
 
         # Act 
-        list_players = clashapi_handler.get_players_from_clan(('clans', '%232U0GY80L'))
+        list_players = clashapi_handler.get_players_from_clan('clans', '%232U0GY80L')
 
-        for target_list in list_players:
-            print(target_list['tag'])
+        for player_tag in list_players:
+            api_return = clashapi_handler.get_player_json('players', quote(player_tag['tag']))
+            playerStat = PlayerStat(name = api_return['name'], trophies = api_return['trophies'], 
+                                wins = api_return['wins'], losses = api_return['losses'], date = datetime.datetime.now())
+
+            clash_repository.add(playerStat)
+            
+        clash_repository.save()
         # Assert
-        print('stop')
+
+        self.assertEqual(len(playerStat), len(list_players))
+        
 
 
 
