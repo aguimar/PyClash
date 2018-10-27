@@ -61,7 +61,7 @@ class Test_App(unittest.TestCase):
         clashapi_handler.get_player_info  = MagicMock(return_value = response_unpickled)
 
         # Act
-        returned_json = clashapi_handler.get_player_json(('players', '#VY28C0GJ'))
+        returned_json = clashapi_handler.get_player_json('players', '#VY28C0GJ')
 
         # Assert
         self.assertEqual(response_unpickled.json(), returned_json)

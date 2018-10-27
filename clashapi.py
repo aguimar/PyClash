@@ -38,16 +38,15 @@ class ClashApiClient:
                 }
 
     # TODO _tag must be parameter    
-    def get_player_info(self, parameters):
+    def get_player_info(self, endpoint, tag):
         # TODO urllib.parse.quote(tag)
-        endpoint = self.clashapi[parameters[0]]
-        tag = parameters[1]
-        r = requests.get(endpoint.url + tag, headers = self._headers)
+        Endpoint = self.clashapi[endpoint]
+        r = requests.get(Endpoint.url + tag, headers = self._headers)
         # TODO inspect r.status_code before return
         return r
 
-    def get_player_json(self, parameters):
-        response = self.get_player_info(parameters)
+    def get_player_json(self, endpoint, tag):
+        response = self.get_player_info(endpoint,tag)
         return response.json()
 
     def get_players_from_clan(self, parameters):
