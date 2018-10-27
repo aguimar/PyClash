@@ -1,6 +1,7 @@
 import collections
 import requests
 import json
+import os
 
 Endpoint = collections.namedtuple('Endpoint', ['endpoint', 'url'])
 
@@ -27,10 +28,7 @@ class ClashApiClient:
 
     def __init__(self):
         
-        # TODO _tag must be parameter
-        self._tag = '%23VY28C0GJ'
-        
-        self._key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImRhM2UwNzU2LWU0MzMtNDc2ZC1iZjY0LWNkMGZhOWEzNjhhNiIsImlhdCI6MTUzOTY0Njg5MCwic3ViIjoiZGV2ZWxvcGVyL2M3ZDFkNzIzLTI1MDYtMDc4MS1kMmUzLWRjZmZiN2M3OGQzNCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNzcuMTU4LjExOS4xMzgiXSwidHlwZSI6ImNsaWVudCJ9XX0.Ss8KFRaKDx-h7MtbsAKOVCk7rYjvlw6bcIUg7Fnm03Rh9k2lUls3NPR9VZexbca0pc8lq0v8UOwcz66ghSDZMw'
+        self._key = os.getenv('MY_TOKEN', 'Token Not Found')
         self._base_url = self.clashapi.base_url
         self._headers = {
                     "Accept":"Aplication/json",
@@ -42,6 +40,9 @@ class ClashApiClient:
         # TODO urllib.parse.quote(tag)
         Endpoint = self.clashapi[endpoint]
         r = requests.get(Endpoint.url + tag, headers = self._headers)
+        
+        if r.status_code != 200:
+            raise NotImplementedError
         # TODO inspect r.status_code before return
         return r
 
@@ -53,5 +54,6 @@ class ClashApiClient:
         endpoint = self.clashapi[parameters[0]]
         tag = parameters[1]
         response = requests.get(endpoint.url + tag + '/members', headers = self._headers)
-        return response.json()
+        list = response.json()['items']
+        return list
 

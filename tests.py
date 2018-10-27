@@ -87,9 +87,9 @@ class Test_App(unittest.TestCase):
         clashapi_handler = ClashApiClient()
 
         # Act 
-        response = clashapi_handler.get_players_from_clan(('clans', '%232U0GY80L'))
+        list_players = clashapi_handler.get_players_from_clan(('clans', '%232U0GY80L'))
 
-        for target_list in response['items']:
+        for target_list in list_players:
             print(target_list['tag'])
         # Assert
         print('stop')
