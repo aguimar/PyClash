@@ -30,7 +30,7 @@ class ClashApiClient:
         # TODO _tag must be parameter
         self._tag = '%23VY28C0GJ'
         
-        self._key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6Ijg1MmNmMDQ1LTcxYjMtNDkyYy1iN2NmLTY0NDI5NDRlZTg0OSIsImlhdCI6MTU0MDMzNjgzNywic3ViIjoiZGV2ZWxvcGVyL2M3ZDFkNzIzLTI1MDYtMDc4MS1kMmUzLWRjZmZiN2M3OGQzNCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNzcuMjA3LjExLjE1MCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.PX6f1Gz8G6XjJRECvKL-lHUjfUT2LLU5IsqHMphwl_JVb4zVvVALPck_FcSHpIs1HqjfQXaKFnqyXQ_ttgqIKw'
+        self._key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImRhM2UwNzU2LWU0MzMtNDc2ZC1iZjY0LWNkMGZhOWEzNjhhNiIsImlhdCI6MTUzOTY0Njg5MCwic3ViIjoiZGV2ZWxvcGVyL2M3ZDFkNzIzLTI1MDYtMDc4MS1kMmUzLWRjZmZiN2M3OGQzNCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxNzcuMTU4LjExOS4xMzgiXSwidHlwZSI6ImNsaWVudCJ9XX0.Ss8KFRaKDx-h7MtbsAKOVCk7rYjvlw6bcIUg7Fnm03Rh9k2lUls3NPR9VZexbca0pc8lq0v8UOwcz66ghSDZMw'
         self._base_url = self.clashapi.base_url
         self._headers = {
                     "Accept":"Aplication/json",
