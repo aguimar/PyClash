@@ -2,6 +2,7 @@ import collections
 import requests
 import json
 import os
+import clashroyale
 
 Endpoint = collections.namedtuple('Endpoint', ['endpoint', 'url'])
 

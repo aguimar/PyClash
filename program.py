@@ -7,7 +7,7 @@ from clashapi import ClashApiClient
 import datetime
 
 clashapi_handler = ClashApiClient()
-clash_repository = PlayerStatRepository('sqlite:///StatsFeature.db')
+clash_repository = PlayerStatRepository('sqlite:///Stats.db')
 
 api_return = clashapi_handler.get_player_json('players', '%23VY28C0GJ')
 
