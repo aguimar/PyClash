@@ -34,7 +34,7 @@ MAX_WAIT = 10
 
 print(my_ip)
 
-browser = webdriver.Firefox(executable_path = '/usr/local/bin/geckodriver')
+browser = webdriver.Chrome(executable_path = './assets/chromedriver')
 
 browser.get(url_clash_api_new_key)
 browser.find_element_by_id('email').send_keys(login)
