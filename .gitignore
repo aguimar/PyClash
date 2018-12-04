@@ -117,3 +117,5 @@ webapi-env/
 dmypy.json
 
 *.csv
+.setup-complete
+superset_config.py

@@ -6,8 +6,9 @@ from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
+
 class PlayerStat(Base):
-    
+
     __tablename__ = 'playerstats'
 
     id = Column(Integer, primary_key=True)
@@ -20,11 +21,13 @@ class PlayerStat(Base):
     def __repr__(self):
         return "'%s' '%s' '%s'" % (self.name, self.wins, self.losses)
 
+
 class ClanStat(Base):
 
     __tablename__ = 'clanstats'
     id = Column(Integer, primary_key=True)
     name = Column(String)
+
 
 class PlayerStatRepository:
 
@@ -39,13 +42,12 @@ class PlayerStatRepository:
         self.connection = self.engine.connect()
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
-        
+
     def add(self, PlayerStat):
         self.session.add(PlayerStat)
-    
+
     def find(self, key):
-        return self.session.query(PlayerStat).filter_by(name = key).first()
+        return self.session.query(PlayerStat).filter_by(name=key).first()
 
     def save(self):
         self.session.commit()
-    

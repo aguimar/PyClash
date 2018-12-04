@@ -8,6 +8,7 @@ requests = "*"
 pandas = "*"
 sqlalchemy = "*"
 selenium = "*"
+"autopep8" = "*"
 
 [dev-packages]
 pylint = "*"
