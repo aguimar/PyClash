@@ -29,7 +29,7 @@ class ClashApiClient:
 
     def __init__(self):
         
-        self._key = os.getenv('MY_TOKEN', 'Token Not Found')
+        self._key = os.getenv('MY_TOKEN_DISCORD', 'Token Not Found')
         self._client = clashroyale.RoyaleAPI(self._key)
 
     # TODO _tag must be parameter    
