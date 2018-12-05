@@ -9,10 +9,14 @@ import datetime
 clashapi_handler = ClashApiClient()
 clash_repository = PlayerStatRepository('sqlite:///StatsRoyaleAPI.db')
 
-api_return = clashapi_handler.get_player_info('VY28C0GJ')
+players = clashapi_handler.get_players_from_clan(('clans', '%232U0GY80L'))
 
-playerStat = PlayerStat(name = api_return._boxed_data['name'], trophies = api_return._boxed_data['trophies'], 
-                                wins = api_return._boxed_data['games']['wins'], losses = api_return._boxed_data['games']['losses'], date = datetime.datetime.now())
+list_players = players.to_list()
+for target_list in list_players:
+    api_return = clashapi_handler.get_player_info(target_list['tag'])
+    playerStat = PlayerStat(name=api_return._boxed_data['name'], trophies=api_return._boxed_data['trophies'],
+                        wins=api_return._boxed_data['games']['wins'], losses=api_return._boxed_data['games']['losses'], date=datetime.datetime.now())
+    clash_repository.add(playerStat)
 
-clash_repository.add(playerStat)
 clash_repository.save()
+print('DONE !!!')

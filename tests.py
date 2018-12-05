@@ -89,7 +89,7 @@ class Test_App(unittest.TestCase):
         # Act 
         list_players = clashapi_handler.get_players_from_clan(('clans', '%232U0GY80L'))
 
-        for target_list in list_players:
+        for target_list in list_players.to_list:
             print(target_list['tag'])
         # Assert
         print('stop')
