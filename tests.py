@@ -93,11 +93,10 @@ class Test_App(unittest.TestCase):
         list_players = clashapi_handler.get_players_from_clan(
             'clans', '%232U0GY80L')
 
-        for player_tag in list_players:
-            api_return = clashapi_handler.get_player_json(
-                'players', quote(player_tag['tag']))
-            playerStat = PlayerStat(name=api_return['name'], trophies=api_return['trophies'],
-                                    wins=api_return['wins'], losses=api_return['losses'], date=datetime.datetime.now())
+        for target_list in list_players.to_list:
+            print(target_list['tag'])
+        # Assert
+        print('stop')
 
             clash_repository.add(playerStat)
 

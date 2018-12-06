@@ -2,6 +2,7 @@ import collections
 import requests
 import json
 import os
+import clashroyale
 
 Endpoint = collections.namedtuple('Endpoint', ['endpoint', 'url'])
 
@@ -31,31 +32,27 @@ class ClashApiClient:
 
     def __init__(self):
 
-        self._key = os.getenv('MY_TOKEN', 'Token Not Found')
-        self._base_url = self.clashapi.base_url
-        self._headers = {
-            "Accept": "Aplication/json",
-            "authorization": "Bearer " + self._key,
-        }
+        self._key = os.getenv('MY_TOKEN_DISCORD', 'Token Not Found')
+        self._client = clashroyale.RoyaleAPI(self._key)
 
     # TODO _tag must be parameter
-    def get_player_info(self, endpoint, tag):
+    def get_player_info(self, tag):
         # TODO urllib.parse.quote(tag)
-        Endpoint = self.clashapi[endpoint]
-        r = requests.get(Endpoint.url + tag, headers=self._headers)
+        r = self._client.get_player(tag)
 
-        if r.status_code != 200:
+        if r.response.status_code != 200:
             raise NotImplementedError
         # TODO inspect r.status_code before return
         return r
 
-    def get_player_json(self, endpoint, tag):
-        response = self.get_player_info(endpoint, tag)
-        return response.json()
+    # def get_player_json(self, endpoint, tag):
+        #response = self.get_player_info(endpoint,tag)
+        # return response.json()
 
-    def get_players_from_clan(self, endpoint, tag):
-        Endpoint = self.clashapi[endpoint]
-        response = requests.get(Endpoint.url + tag +
-                                '/members', headers=self._headers)
-        lista = response.json()
-        return lista['items']
+    def get_players_from_clan(self, parameters):
+        #endpoint = self.clashapi[parameters[0]]
+        tag = parameters[1]
+        #response = requests.get(endpoint.url + tag + '/members', headers = self._headers)
+        r = self._client.get_clan('2U0GY80L')
+        #list = response.json()['items']
+        return r['members']
