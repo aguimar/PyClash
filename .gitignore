@@ -27,6 +27,7 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+assets/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -116,3 +117,5 @@ webapi-env/
 dmypy.json
 
 *.csv
+.setup-complete
+superset_config.py
